@@ -5,9 +5,7 @@ using UnityEngine.UI;
 
 public class Blocking : MonoBehaviour
 {
-    //Variable names need reconsidering
-
-    private float stamina = 100; //This is also the max value of the timer
+    private float stamina = 100; //Max time value
     public bool blocked = false;
     public float staminaDegenRate;
     public float staminaRechargeRate;
@@ -59,17 +57,17 @@ public class Blocking : MonoBehaviour
         {
             if (Input.GetButton("Block") && !timer.timeUp) //If there is stamina left...
             {
+                timer.countDown = true;
                 block.SetActive(true);
                 perfect.countDown = true; //Start the degen for stamina and the perfect window
-                timer.countDown = true;
                 if (!perfect.timeUp) //If there is time left on the perfect window
                 {
                     perfectBlock = true;
                 }
                 else //If the perfect window is up set normal blocking value
                 {
-                    perfectBlock = false;
                     blocked = true;
+                    perfectBlock = false;
                 }
                 //ENABLE THE BLOCK PREFAB
             }
@@ -80,7 +78,7 @@ public class Blocking : MonoBehaviour
                 blocked = false;
                 //Block fail sound effect (Play once). Use flag to tell.
             }
-            //If the button is released start regening
+            //Regenerate if button is not being pressed
             else
             {
                 block.SetActive(false);
